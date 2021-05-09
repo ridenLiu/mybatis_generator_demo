@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!--参考https://www.cnblogs.com/throwable/p/12046848.html-->
+<generatorConfiguration>
+
+    <!--  0或者1个<properties>标签，用于指定全局配置文件，下面可以通过占位符的形式读取<properties>指定文件中的值。  -->
+    <properties resource="db.properties"/>
+    <!--   0或者N个<classPathEntry>标签，<classPathEntry>只有一个location属性，
+    用于指定数据源驱动包（jar或者zip）的绝对路径，具体选择什么驱动包取决于连接什么类型的数据源。 -->
+    <!--    <classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip"/>-->
+
+    <!--  1或者N个<context>标签，用于运行时的解析模式和具体的代码生成行为  -->
+    <!--  Context示例的唯一ID，用于输出错误信息时候作为唯一标记  -->
+    <!--  targetRuntime：用于执行代码生成模式。  -->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+
+        <!--注释-->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库链接-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/mydb"
+                        userId="root"
+                        password="mariadb">
+        </jdbcConnection>
+
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--用于控制实体（Model）类的代码生成行为-->
+        <javaModelGenerator targetPackage="test.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaModelGenerator>
+        <!--用于控制XML映射文件的代码生成行为-->
+<!--        <sqlMapGenerator targetPackage="test.xml" targetProject="src/main/resources">-->
+<!--            <property name="enableSubPackages" value="true"/>-->
+<!--        </sqlMapGenerator>-->
+        <!--用于控制Mapper接口的代码生成行为-->
+<!--        <javaClientGenerator type="XMLMAPPER" targetPackage="test.dao" targetProject="src/main/java">-->
+<!--            <property name="enableSubPackages" value="true"/>-->
+<!--        </javaClientGenerator>-->
+        <!--用于配置要生成代码的数据库表格-->
+        <table tableName="STUDENT" domainObjectName="Student">
+            <!--            <property name="useActualColumnNames" value="true"/>-->
+            <!--            <generatedKey column="ID" sqlStatement="DB2" identity="true"/>-->
+            <!--            <columnOverride column="DATE_FIELD" property="startDate"/>-->
+            <!--            <ignoreColumn column="FRED"/>-->
+            <!--            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR"/>-->
+        </table>
+
+    </context>
+
+</generatorConfiguration>
